@@ -32,31 +32,11 @@ void insert_integer(struct node** tree, int value)
 	}
 	if (value > (*tree)->value)
 	{
-		//if ((*tree)->right != NULL)
-			insert_integer(&(*tree)->right, value);
-		/*
-		else
-		{
-			ptr->right = new struct node();
-			ptr->right->value = value;
-			ptr->right->right = NULL;
-			ptr->right->left = NULL;
-		}*/
-
+		insert_integer(&(*tree)->right, value);
 	}
 	if (value <= (*tree)->value)
 	{
-		//if ((*tree)->left != NULL)
-			insert_integer(&(*tree)->left, value);
-		/*
-		else
-		{
-			ptr->left = new struct node();
-			ptr->left->value = value;
-			ptr->left->right = NULL;
-			ptr->left->left = NULL;
-		}
-		*/
+		insert_integer(&(*tree)->left, value);
 	}
 }
 
@@ -72,7 +52,7 @@ void print_tree(struct node* tree)
 	{
 		print_tree(tree->left);
 	}
-	cout << tree->value << endl;
+	cout << tree->value << " ";
 	if (tree->right != NULL)
 	{
 		print_tree(tree->right);
@@ -95,6 +75,7 @@ void terminate_tree(struct node* tree)
 	{
 		terminate_tree(tree->right);
 	}
+	int value = tree->value;
 	delete tree;
 	tree = NULL;
 }
@@ -116,7 +97,9 @@ int main()
 			insert_integer(&root, inputNumber);
 			break;
 		case 2:
+			cout << endl;
 			print_tree(root);
+			cout << endl;
 			break;
 		case 3:
 			terminate_tree(root);
