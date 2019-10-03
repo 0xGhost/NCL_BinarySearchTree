@@ -2,6 +2,11 @@
 //
 
 #include <iostream>
+#include <limits>
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 using namespace std;
 
@@ -84,9 +89,11 @@ int main()
 {
 	int option;
 	bool flag = true;
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
 	do 
 	{
-		cout << "1:insert integer \n2:print tree \n3: terminate tree" << endl;
+		cout << "\n1:insert integer \n2:print tree \n3: terminate tree" << endl;
 		cin >> option;
 		switch (option)
 		{
@@ -94,7 +101,14 @@ int main()
 			cout << "enter an integer: ";
 			int inputNumber;
 			cin >> inputNumber;
-			insert_integer(&root, inputNumber);
+			if (cin.fail())
+			{
+				cout << "Please enter a valid integer." << endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+			}
+			else
+				insert_integer(&root, inputNumber);
 			break;
 		case 2:
 			cout << endl;
@@ -103,10 +117,14 @@ int main()
 			break;
 		case 3:
 			terminate_tree(root);
+			
+			_CrtDumpMemoryLeaks();
 			flag = false;
 			break;
 		default:
-
+			cout << "Invalid input! Please input again." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			break;
 		}
 
