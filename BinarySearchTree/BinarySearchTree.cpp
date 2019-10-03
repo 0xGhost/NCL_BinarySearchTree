@@ -21,7 +21,6 @@ struct node* root = NULL;
 
 void insert_integer(struct node** tree, int value)
 {
-	//struct node** ptr = tree;
 	if (tree == NULL)
 	{
 		cout << "tree pointer empty!" << endl;
