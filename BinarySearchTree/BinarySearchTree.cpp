@@ -13,13 +13,13 @@ using namespace std;
 struct node
 {
 	int value;
-	struct node* right;
-	struct node* left;
+	node* right;
+	node* left;
 };
 
-struct node* root = NULL;
+node* root = NULL;
 
-void insert_integer(struct node** tree, int value)
+void insert_integer(node** tree, int value)
 {
 	if (tree == NULL)
 	{
@@ -28,23 +28,26 @@ void insert_integer(struct node** tree, int value)
 	}
 	if (*tree == NULL)
 	{
-		*tree = new struct node();
+		*tree = new node();
 		(*tree)->value = value;
 		(*tree)->right = NULL;
 		(*tree)->left = NULL;
 		return;
 	}
-	if (value > (*tree)->value)
+	else 
 	{
-		insert_integer(&(*tree)->right, value);
-	}
-	if (value <= (*tree)->value)
-	{
-		insert_integer(&(*tree)->left, value);
+		if (value > (*tree)->value)
+		{
+			insert_integer(&(*tree)->right, value);
+		}
+		else
+		{
+			insert_integer(&(*tree)->left, value);
+		}
 	}
 }
 
-void print_tree(struct node* tree)
+void print_tree(node* tree)
 {
 	if (tree == NULL)
 	{
@@ -63,7 +66,7 @@ void print_tree(struct node* tree)
 	}
 }
 
-void terminate_tree(struct node* tree)
+void terminate_tree(node* tree)
 {
 	if (tree == NULL)
 	{
